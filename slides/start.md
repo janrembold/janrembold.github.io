@@ -1,4 +1,8 @@
-# Gulp Frontend Boilerplate
+## Enterprise Frontend Framework
+
+## &
+
+## Gulp Boilerplate
 
 https://github.com/virtualidentityag/gulp-frontend-boilerplate 
 
