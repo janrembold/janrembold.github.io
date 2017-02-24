@@ -1,1 +1,1 @@
-# ES6 and Typescript Introduction
+# ES6 Introduction
