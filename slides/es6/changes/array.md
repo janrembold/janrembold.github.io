@@ -1,10 +1,11 @@
-## arrow functions demo
+## array functions
 
-ES5:
+Old style:
 ```javascript
 function Person(){
   var that = this;
   that.age = 0;
+
   setInterval(() => {
     that.age++;
   }, 1000);
@@ -12,12 +13,13 @@ function Person(){
 var p = new Person();
 ```
 
-ES6:
+Shiny new:
 ```javascript
 function Person(){
   this.age = 0;
+
   setInterval(() => {
-    this.age++;
+    this.age++; // <= this context
   }, 1000);
 }
 var p = new Person();

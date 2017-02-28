@@ -1,18 +1,26 @@
 ## arrow functions
 
-ES5:
+Old style:
 ```javascript
-this.counter = 0;
-var _this = this;
-$('a.link').on('click', function() {
-    _this.counter++;
-});
+function Person(){
+  var that = this;
+  that.age = 0;
+
+  setInterval(() => {
+    that.age++;
+  }, 1000);
+}
+var p = new Person();
 ```
 
-ES6:
+Shiny new:
 ```javascript
-this.counter = 0;
-$('a.link').on('click', () => {
-    this.counter++;
-});
+function Person(){
+  this.age = 0;
+
+  setInterval(() => {
+    this.age++; // <= this context
+  }, 1000);
+}
+var p = new Person();
 ```
