@@ -55,18 +55,46 @@
         }
 
         h1 {
-            font-size: 6.5vw;
+            font-size: 10vw;
         }
 
         h2 {
-            font-size: 3vw;
+            font-size: 4vw;
             margin-top: -10px;
         }
         
         a {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            padding: 5px;
             text-decoration: none;
             color: #404040;
-            padding:5px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        a > img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 6.5vw;
+            }
+
+            h2 {
+                font-size: 3vw;
+                margin-top: -10px;
+            }
+
+            a {
+                width: 32px;
+                height: 32px;
+            }
         }
     </style>
 </head>
@@ -75,14 +103,23 @@
 <video poster="video/jrbg-poster.jpg" id="bgvid" playsinline autoplay muted loop>
     <source src="video/jrbg.mp4" type="video/mp4">
 </video>
+
 <div class="content">
     <h1>JAN REMBOLD</h1>
     <h2>FRONTEND DEVELOPER</h2>
-    <div class="links">
-        <a href="https://github.com/janrembold" title="GitHub">G</a>
-        <a href="https://www.xing.com/profile/Jan_Rembold" title="Xing">X</a>
-        <a href="https://www.linkedin.com/in/jan-rembold-67bb2417/" title="LinkedIn">L</a>
-        <a href="https://www.facebook.com/jan.rembold" title="Facebook">F</a>
+    <div>
+        <a href="https://github.com/janrembold" title="GitHub">
+            <img src="img/icons/github.png" alt="GitHub">
+        </a>
+        <a href="https://www.xing.com/profile/Jan_Rembold" title="Xing">
+            <img src="img/icons/xing.png" alt="Xing">
+        </a>
+        <a href="https://www.linkedin.com/in/jan-rembold-67bb2417/" title="LinkedIn">
+            <img src="img/icons/linkedin.png" alt="LinkedIn">
+        </a>
+        <a href="https://www.facebook.com/jan.rembold" title="Facebook">
+            <img src="img/icons/facebook.png" alt="Facebook">
+        </a>
     </div>
 </div>
 
