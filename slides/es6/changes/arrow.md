@@ -7,7 +7,7 @@ function Person(){
   that.age = 0;
 
   setInterval(function() {
-    that.age++;
+    that.age++; // <= that context
   }, 1000);
 }
 var p = new Person();
