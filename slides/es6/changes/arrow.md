@@ -1,12 +1,12 @@
 ## arrow functions
 
-Old style:
+Old school:
 ```javascript
 function Person(){
   var that = this;
   that.age = 0;
 
-  setInterval(() => {
+  setInterval(function() {
     that.age++;
   }, 1000);
 }
