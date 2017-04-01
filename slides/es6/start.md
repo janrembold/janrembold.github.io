@@ -1,1 +1,1 @@
-# ES6 Introduction
+# ES6 - quick wins to get started
