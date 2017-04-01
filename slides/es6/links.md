@@ -4,6 +4,7 @@ http://www.wintellect.com/devcenter/jcarroll/why-you-should-be-writing-ecma-scri
 https://strongloop.com/strongblog/introduction-to-es6-iterators/
 https://thenextweb.com/dd/2016/03/09/6-reasons-need-learn-javascript-es6-now-not-later/
 https://github.com/addyosmani/es6-tools
+https://github.com/addyosmani/es6-equivalents-in-es5
 
 # Typescript Links
 
