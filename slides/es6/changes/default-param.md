@@ -3,7 +3,7 @@
 Dusty way:
 ```javascript
 function pow(base, exp){
-  if( isNaN(exp) ) {
+  if( typeof exp === 'undefined' ) {
     exp = 2;
   }
   return Math.pow(base, exp);
