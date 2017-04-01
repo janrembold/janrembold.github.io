@@ -22,6 +22,6 @@ for (let value of list) {
    console.log(value);
 }
 
-// works for all `iterable` objects:
+// works for all `iterable` objects
 // like Array, Map, Set, Strings, arguments...
 ```
