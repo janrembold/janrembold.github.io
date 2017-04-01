@@ -1,6 +1,6 @@
 ## var vs. let
 
-Fuzzy scope:
+fuzzy scope:
 ```javascript
 function varTest(){
   var x = 10;
@@ -12,7 +12,7 @@ function varTest(){
 }
 ```
 
-Razor blade sharp:
+razor blade sharp:
 ```javascript
 function letTest(){
   let x = 10;

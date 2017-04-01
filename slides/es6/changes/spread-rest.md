@@ -1,6 +1,6 @@
 ## spread-operator
 
-Doohhh:
+doohhh:
 ```javascript
 var arr1 = [1,2,3];
 var arr2 = [4,5];
@@ -11,7 +11,7 @@ arr3.push(4); // [1,2,3,4]
 Array.prototype.push.apply(arr1, arr2); // [1,2,3,4,5]
 ```
 
-Bazinga:
+bazinga:
 ```javascript
 let arr1 = [1,2,3];
 let arr2 = [4,5];

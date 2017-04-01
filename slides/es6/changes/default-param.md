@@ -1,6 +1,6 @@
 ## function default parameter
 
-Dusty way:
+dusty way:
 ```javascript
 function pow(base, exp){
   if( typeof exp === 'undefined' ) {
@@ -11,7 +11,7 @@ function pow(base, exp){
 pow(4); // 16
 ```
 
-Bling bling way:
+bling bling way:
 ```javascript
 function pow(base, exp=2){
   return Math.pow(base, exp);

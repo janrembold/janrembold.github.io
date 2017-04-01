@@ -1,6 +1,6 @@
 ## for...of
 
-We all know that one:
+we all know that one:
 ```javascript
 var list = [8, 3, 11];
 
@@ -14,7 +14,7 @@ list.forEach(function(value, index) {
 });
 ```
 
-Mighty and short:
+mighty and short:
 ```javascript
 let list = [8, 3, 11];
 

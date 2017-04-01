@@ -1,6 +1,6 @@
 ## arrow functions
 
-Old school:
+old school:
 ```javascript
 function Person(){
   var that = this;
@@ -13,7 +13,7 @@ function Person(){
 var p = new Person();
 ```
 
-Shiny new:
+shiny new:
 ```javascript
 function Person(){
   this.age = 0;
