@@ -1,4 +1,4 @@
-## why use es6 (now)
+## why use es6 (now!)
 
 - adds lots of syntactic sugar for object orientation
 - much cleaner code
