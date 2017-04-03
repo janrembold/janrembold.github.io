@@ -1,9 +1,5 @@
 ## why use es6 (now!)
 
-- adds lots of syntactic sugar for object orientation
-- much cleaner code
-- useful code enhancements and methods
-- leading frameworks already use es6: Angular 2, React, Ember.js and much more
-- you will love it!
+- all the cool kids are doing it
 
-let's see some examples...
+![nerds that code](https://www.denverlibrary.org/sites/dplorg/files/nerds254.jpg)
