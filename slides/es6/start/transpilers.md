@@ -4,6 +4,6 @@ turn es6 into es5 code
 
 - Babel
 - Google Traceur
-- Facebooks Regenerator
+- TypeScript
 
 use with builders like Webpack, Gulp, Grunt, Broccoli
