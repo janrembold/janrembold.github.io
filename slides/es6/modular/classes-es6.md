@@ -2,9 +2,7 @@
 
 ```javascript
 class Hello {
-  constructor(name) {
-    this.name = name;
-  }
+  constructor(name) { this.name = name; }
 
   hello() {
     return 'Hello ' + this.name + '!';
@@ -12,15 +10,10 @@ class Hello {
 }
 
 class HelloWorld extends Hello {
-  constructor() {
-    super('World');
-  }
+  constructor() { super('World'); }
 
   echo() {
     console.log(super.hello());
   }
 }
-
-var hw = new HelloWorld();
-hw.echo(); // "Hello World!"
 ```
