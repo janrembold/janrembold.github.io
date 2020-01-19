@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>BetCoins Demo Chart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  
+  <canvas id="Bitfinex" style="max-height: 90vh;max-width: 90vw;"></canvas>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+  <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-streaming/releases/download/v1.1.0/chartjs-plugin-streaming.js"></script>
+
+  <script type="text/javascript">
+    var buf = {};
+    var ws = new WebSocket('wss://api.bitfinex.com/ws/');
+
+    buf['Bitfinex'] = [[], []];
+
+    ws.onopen = function() {
+        ws.send(JSON.stringify({
+            "event": "subscribe",
+            "channel": "trades",
+            "pair": "BTCUSD"
+        }));
+    };
+
+    ws.onmessage = function(msg) {
+        var response = JSON.parse(msg.data);
+        if (response[1] === 'te') {
+            buf['Bitfinex'][response[5] > 0 ? 0 : 1].push({
+                x: response[3] * 1000,
+                y: response[4]
+            });
+        }
+    }
+
+    var id = 'Bitfinex';
+    var ctx = document.getElementById(id).getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                data: [],
+                label: 'Buy',                     // 'buy' price data
+                borderColor: 'rgb(255, 99, 132)', // line color
+                backgroundColor: 'rgba(255, 99, 132, 0.5)', // fill color
+                fill: false,                      // no fill
+                lineTension: 0                    // straight line
+            }, {
+                data: [],
+                label: 'Sell',                    // 'sell' price data
+                borderColor: 'rgb(54, 162, 235)', // line color
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // fill color
+                fill: false,                      // no fill
+                lineTension: 0                    // straight line
+            }]
+        },
+        options: {
+            title: {
+                text: 'BTC/USD (' + id + ')', // chart title
+                display: true
+            },
+            scales: {
+                xAxes: [{
+                    type: 'realtime' // auto-scroll on X axis
+                }]
+            },
+            plugins: {
+                streaming: {
+                    duration: 50000, // display data for the latest 300000ms (5 mins)
+                    onRefresh: function(chart) { // callback on chart update interval
+                        console.log('update', parseInt(Date.now() / 1000), buf)
+                        Array.prototype.push.apply(
+                            chart.data.datasets[0].data, buf[id][0]
+                        );            // add 'buy' price data to chart
+                        Array.prototype.push.apply(
+                            chart.data.datasets[1].data, buf[id][1]
+                        );            // add 'sell' price data to chart
+                        buf[id] = [[], []]; // clear buffer
+                    }
+                }
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>
