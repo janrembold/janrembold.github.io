@@ -9,82 +9,62 @@
 
 <body>
   
-  <canvas id="Bitfinex" style="max-height: 90vh;max-width: 90vw;"></canvas>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-  <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-streaming/releases/download/v1.1.0/chartjs-plugin-streaming.js"></script>
+  <canvas id="chart" style="max-height: 90vh;max-width: 90vw;"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
+  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 
   <script type="text/javascript">
-    var buf = {};
-    var ws = new WebSocket('wss://api.bitfinex.com/ws/');
-
-    buf['Bitfinex'] = [[], []];
-
-    ws.onopen = function() {
-        ws.send(JSON.stringify({
-            "event": "subscribe",
-            "channel": "trades",
-            "pair": "BTCUSD"
-        }));
-    };
-
-    ws.onmessage = function(msg) {
-        var response = JSON.parse(msg.data);
-        if (response[1] === 'te') {
-            buf['Bitfinex'][response[5] > 0 ? 0 : 1].push({
-                x: response[3] * 1000,
-                y: response[4]
-            });
-        }
-    }
-
-    var id = 'Bitfinex';
-    var ctx = document.getElementById(id).getContext('2d');
+    var ctx = document.getElementById('chart').getContext('2d');
+    var pusher = new Pusher('de504dc5763aeef9ff52'); // Pusher key for Bitstamp
+    var channel = pusher.subscribe('live_trades'); // subscribe live trade data
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
                 data: [],
-                label: 'Buy',                     // 'buy' price data
-                borderColor: 'rgb(255, 99, 132)', // line color
-                backgroundColor: 'rgba(255, 99, 132, 0.5)', // fill color
-                fill: false,                      // no fill
-                lineTension: 0                    // straight line
-            }, {
-                data: [],
-                label: 'Sell',                    // 'sell' price data
-                borderColor: 'rgb(54, 162, 235)', // line color
-                backgroundColor: 'rgba(54, 162, 235, 0.5)', // fill color
-                fill: false,                      // no fill
-                lineTension: 0                    // straight line
+                label: 'Buy',                    
+                borderColor: 'rgb(255, 99, 132)', 
+                backgroundColor: 'rgba(255, 99, 132, 0.5)', 
+                fill: false,                    
+                lineTension: 0                   
             }]
         },
         options: {
             title: {
-                text: 'BTC/USD (' + id + ')', // chart title
+                text: 'BTC/USD',
                 display: true
             },
             scales: {
                 xAxes: [{
-                    type: 'realtime' // auto-scroll on X axis
+                    type: 'realtime' 
                 }]
             },
             plugins: {
                 streaming: {
-                    duration: 50000, // display data for the latest 300000ms (5 mins)
-                    onRefresh: function(chart) { // callback on chart update interval
-                        //console.log('update', parseInt(Date.now() / 1000), buf)
-                        Array.prototype.push.apply(
-                            chart.data.datasets[0].data, buf[id][0]
-                        );            // add 'buy' price data to chart
-                        Array.prototype.push.apply(
-                            chart.data.datasets[1].data, buf[id][1]
-                        );            // add 'sell' price data to chart
-                        buf[id] = [[], []]; // clear buffer
-                    }
+                    duration: 30000, 
+                    frameRate: 30
                 }
             }
         }
+    })
+
+    channel.bind('trade', function (data) { // callback on message receipt
+        console.log(data)
+
+        // append the new data to the existing chart data
+        chart.data.datasets[0].data.push({
+            x: data.timestamp * 1000,
+            y: data.price
+        });
+
+        // update chart datasets keeping the current animation
+        chart.update({
+            preservation: true
+        });
     });
   </script>
 </body>
