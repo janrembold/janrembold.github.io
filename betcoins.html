@@ -1,72 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>BetCoins Demo Chart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>BetCoins Demo Chart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+  <body>
+    <canvas id="chart" style="max-height: 90vh;max-width: 90vw;"></canvas>
 
-<body>
-  
-  <canvas id="chart" style="max-height: 90vh;max-width: 90vw;"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
-  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+    <script type="text/javascript">
+      const buffer = {
+        x: null,
+        y: null
+      };
+      const ctx = document.getElementById("chart").getContext("2d");
+      const w = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
+      const bracketRegex = /\[.*\[(.*?)\]\]/gm;
 
-  <script type="text/javascript">
-    var ctx = document.getElementById('chart').getContext('2d');
-    var pusher = new Pusher('de504dc5763aeef9ff52'); // Pusher key for Bitstamp
-    var channel = pusher.subscribe('live_trades'); // subscribe live trade data
-    var chart = new Chart(ctx, {
-        type: 'line',
+      const getPrice = data => {
+        var matches = bracketRegex.exec(String(data));
+        return matches && matches[1].split(",")[0];
+      };
+
+      const msg = JSON.stringify({
+        event: "subscribe",
+        channel: "book",
+        symbol: "tBTCUSD"
+      });
+
+      const chart = new Chart(ctx, {
+        type: "line",
         data: {
-            datasets: [{
-                data: [],
-                label: 'Buy',                    
-                borderColor: 'rgb(255, 99, 132)', 
-                backgroundColor: 'rgba(255, 99, 132, 0.5)', 
-                fill: false,                    
-                lineTension: 0                   
-            }]
+          datasets: [
+            {
+              data: [],
+              label: "Buy",
+              borderColor: "rgb(255, 99, 132)",
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              fill: false,
+              lineTension: 0
+            }
+          ]
         },
         options: {
-            title: {
-                text: 'BTC/USD',
-                display: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'realtime' 
-                }]
-            },
-            plugins: {
-                streaming: {
-                    duration: 30000, 
-                    frameRate: 30
-                }
+          title: {
+            text: "BTC/USD",
+            display: true
+          },
+          scales: {
+            xAxes: [
+              {
+                type: "realtime"
+              }
+            ]
+          },
+          plugins: {
+            streaming: {
+              duration: 10000,
+              frameRate: 5
             }
+          }
         }
-    })
+      });
 
-    channel.bind('trade', function (data) { // callback on message receipt
-        console.log(data)
+      w.onopen = () => w.send(msg);
+      w.onmessage = msg => {
+        const price = getPrice(msg.data);
+        // console.log(price, timestamp, msg.data);
 
-        // append the new data to the existing chart data
-        chart.data.datasets[0].data.push({
-            x: data.timestamp * 1000,
-            y: data.price
-        });
+        if (price) {
+          buffer.x = Date.now();
+          buffer.y = price;
+        }
+      };
 
-        // update chart datasets keeping the current animation
-        chart.update({
-            preservation: true
-        });
-    });
-  </script>
-</body>
-
+      window.setInterval(() => {
+        if (buffer.y) {
+          chart.data.datasets[0].data.push({
+            x: buffer.x,
+            y: buffer.y
+          });
+          chart.update({ preservation: true });
+        }
+      }, 500);
+    </script>
+  </body>
 </html>
