@@ -39,11 +39,11 @@
           datasets: [
             {
               data: [],
-              label: "Buy",
+              label: "Price",
               borderColor: "rgb(255, 99, 132)",
               backgroundColor: "rgba(255, 99, 132, 0.5)",
               fill: false,
-              lineTension: 0.4
+              lineTension: 0.35
             }
           ]
         },
@@ -61,33 +61,58 @@
           },
           plugins: {
             streaming: {
-              duration: 10000,
-              frameRate: 5
+              duration: 60000,
+              frameRate: 30
             }
           }
         }
       });
 
-      w.onopen = () => w.send(msg);
-      w.onmessage = msg => {
-        const price = getPrice(msg.data);
-        // console.log(price, timestamp, msg.data);
+      const intervalMs = 1000;
+      const data = [];
+      let lastUpdate = Date.now();
 
-        if (price) {
-          buffer.x = Date.now();
-          buffer.y = price;
-        }
-      };
+      const updateAverage = t => {
+        let next = true;
+        let total = 0;
+        let count = 0;
 
-      window.setInterval(() => {
-        if (buffer.y) {
+        do {
+          const lastData = data.pop();
+          total += lastData[1];
+          count++;
+
+          if (lastData[0] === t) {
+            next = false;
+          }
+        } while (next);
+
+        if (total > 0) {
           chart.data.datasets[0].data.push({
-            x: buffer.x,
-            y: buffer.y
+            x: t,
+            y: total / count
           });
           chart.update({ preservation: true });
         }
-      }, 1000);
+      };
+
+      w.onopen = () => w.send(msg);
+      w.onmessage = msg => {
+        const price = getPrice(msg.data);
+        const timestamp = Date.now();
+
+        if (!price) {
+          return;
+        }
+
+        data.push([timestamp, parseFloat(price)]);
+
+        if (timestamp >= lastUpdate + intervalMs) {
+          lastUpdate = timestamp;
+          setTimeout(() => updateAverage(timestamp), 0);
+          //   updateAverage(timestamp);
+        }
+      };
     </script>
   </body>
 </html>
