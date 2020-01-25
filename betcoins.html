@@ -9,15 +9,23 @@
   <body>
     <canvas id="chart" style="max-height: 90vh;max-width: 90vw;"></canvas>
 
+    <label
+      >Update Interval [ms]
+      <input type="number" id="update" value="750" />
+    </label>
+
+    <label
+      >X-Axis duration [ms]
+      <input type="number" id="duration" value="60000" />
+    </label>
+
+    <button onClick="window.location.reload();">Refresh Page</button>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
 
     <script type="text/javascript">
-      const buffer = {
-        x: null,
-        y: null
-      };
       const ctx = document.getElementById("chart").getContext("2d");
       const w = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
       const bracketRegex = /\[.*\[(.*?)\]\]/gm;
@@ -27,11 +35,24 @@
         return matches && matches[1].split(",")[0];
       };
 
-      const msg = JSON.stringify({
-        event: "subscribe",
-        channel: "book",
-        symbol: "tBTCUSD"
-      });
+      const config = {};
+      const persistConfig = id => {
+        const input = document.getElementById(id);
+        const storage = localStorage.getItem(id);
+
+        if (storage) {
+          input.value = storage;
+        }
+
+        config[id] = input.value;
+
+        input.addEventListener("change", () => {
+          localStorage.setItem(id, input.value);
+        });
+      };
+
+      persistConfig("update");
+      persistConfig("duration");
 
       const chart = new Chart(ctx, {
         type: "line",
@@ -49,7 +70,7 @@
         },
         options: {
           title: {
-            text: "BTC/USD",
+            text: "ETH/USD",
             display: true
           },
           scales: {
@@ -61,14 +82,14 @@
           },
           plugins: {
             streaming: {
-              duration: 60000,
+              duration: parseInt(config.duration),
               frameRate: 30
             }
           }
         }
       });
 
-      const intervalMs = 1000;
+      const intervalMs = parseInt(config.update);
       const data = [];
       let lastUpdate = Date.now();
 
@@ -96,7 +117,15 @@
         }
       };
 
-      w.onopen = () => w.send(msg);
+      w.onopen = () =>
+        w.send(
+          JSON.stringify({
+            event: "subscribe",
+            channel: "book",
+            symbol: "tETHUSD"
+          })
+        );
+
       w.onmessage = msg => {
         const price = getPrice(msg.data);
         const timestamp = Date.now();
