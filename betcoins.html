@@ -11,7 +11,7 @@
 
     <label
       >Update Interval [ms]
-      <input type="number" id="update" value="750" />
+      <input type="number" id="update" value="2000" />
     </label>
 
     <label
@@ -31,7 +31,10 @@
       const bracketRegex = /\[.*\[(.*?)\]\]/gm;
 
       const getPrice = data => {
+        console.log("data", data);
         var matches = bracketRegex.exec(String(data));
+        console.log("length", matches);
+
         return matches && matches[1].split(",")[0];
       };
 
@@ -63,7 +66,7 @@
               borderColor: "rgb(255, 99, 132)",
               backgroundColor: "rgba(255, 99, 132, 0.5)",
               fill: false,
-              lineTension: 0.35
+              lineTension: 0
             }
           ]
         },
@@ -91,6 +94,7 @@
       const intervalMs = parseInt(config.update);
       const data = [];
       let lastUpdate;
+      let price;
 
       const updateAverage = () => {
         let total = 0;
@@ -109,35 +113,75 @@
         }
       };
 
-      w.onopen = () =>
+      const updateChart = p => {
+        console.log("update", p);
+
+        chart.data.datasets[0].data.push({
+          x: Date.now(),
+          y: p
+        });
+        chart.update({ preservation: true });
+      };
+
+      w.onopen = () => {
+        w.send(JSON.stringify({ event: "conf", flags: 65536 + 131072 }));
+        // w.send(
+        //   JSON.stringify({
+        //     event: "subscribe",
+        //     channel: "book",
+        //     symbol: "tBTCUSD"
+        //   })
+        // );
         w.send(
           JSON.stringify({
             event: "subscribe",
-            channel: "book",
+            channel: "ticker",
             symbol: "tBTCUSD"
           })
         );
+      };
 
+      let intervalTimer;
       w.onmessage = msg => {
-        const price = getPrice(msg.data);
-        const timestamp = Date.now();
+        const raw = JSON.parse(msg.data);
+        const d = raw[1];
 
-        if (!price) {
-          return;
+        // if (!Array.isArray(d)) {
+        //   return;
+        // }
+
+        if (Array.isArray(d)) {
+          price = parseFloat(d[0]);
+          console.log(d);
         }
 
-        if (!lastUpdate) {
-          lastUpdate = timestamp;
-        }
+        updateChart(price);
 
-        data.push([timestamp, parseFloat(price)]);
+        clearInterval(intervalTimer);
+        intervalTimer = setInterval(
+          () => updateChart(price),
+          parseInt(config.update)
+        );
 
-        if (timestamp >= lastUpdate + intervalMs) {
-          updateAverage();
+        // const price = d[0]; // getPrice(msg.data);
+        // const timestamp = Date.now();
 
-          data.pop();
-          lastUpdate = data[data.length - 1][0];
-        }
+        // if (!price) {
+        //   return;
+        // }
+
+        // if (!lastUpdate) {
+        //   lastUpdate = timestamp;
+        // }
+
+        // data.push([timestamp, parseFloat(price)]);
+
+        // if (timestamp >= lastUpdate + intervalMs) {
+        //   updateAverage();
+
+        //   data.pop();
+        //   lastUpdate = data[data.length - 1][0];
+        // }
       };
     </script>
   </body>
