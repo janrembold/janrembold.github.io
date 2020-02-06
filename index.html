@@ -1,161 +1,170 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Jan Rembold - Frontend Developer</title>
-    <meta name="description" content="Always curious and looking for new technologies and techniques">
-    <meta name="keywords" content="javascript, typescript, html, css, responsive webdesign, react, sass, node.js, immutable">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico">
+    <meta
+      name="description"
+      content="Always curious and looking for new technologies and techniques"
+    />
+    <meta
+      name="keywords"
+      content="javascript, typescript, html, css, responsive webdesign, react, sass, node.js, immutable"
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico" />
 
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0;
-            min-width: 320px;
-            color: #404040;
-            background: #bbdcef url(img/bg.jpg) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-font-smoothing: antialiased;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0;
+        min-width: 320px;
+        color: #404040;
+        background: #bbdcef url(img/bg.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+      }
 
-        .content {
-            margin-top: 30vh;
-            text-align: center;
-        }
+      .content {
+        margin-top: 30vh;
+        text-align: center;
+      }
 
-        h1,
-        h2 {
-            font-weight: 200;
-            margin: 0;
-            text-shadow: 0 0 2px #fff;
-        }
+      h1,
+      h2 {
+        font-weight: 200;
+        margin: 0;
+        text-shadow: 0 0 2px #ffffff;
+      }
 
+      h1 {
+        font-size: 10vw;
+      }
+
+      h2 {
+        font-size: 4vw;
+        margin-top: -10px;
+      }
+
+      a {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        padding: 5px;
+        text-decoration: none;
+        color: #404040;
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      a > img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      @media (min-width: 600px) {
         h1 {
-            font-size: 10vw;
+          font-size: 6.5vw;
         }
 
         h2 {
-            font-size: 4vw;
-            margin-top: -10px;
+          font-size: 3vw;
+          margin-top: -10px;
         }
 
         a {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            padding: 5px;
-            text-decoration: none;
-            color: #404040;
-            background-color: transparent;
-            cursor: pointer;
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        h2 {
+          margin-top: -25px;
+        }
+      }
+
+      @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: landscape) {
+        h1 {
+          font-size: 11.5vw;
         }
 
-        a>img {
-            display: block;
-            height: auto;
-            max-width: 100%;
-            width: 100%;
+        h2 {
+          font-size: 5vw;
+          margin-top: -10px;
         }
 
-        @media (min-width: 600px) {
-            h1 {
-                font-size: 6.5vw;
-            }
+        a {
+          width: 32px;
+          height: 32px;
+        }
+      }
 
-            h2 {
-                font-size: 3vw;
-                margin-top: -10px;
-            }
-
-            a {
-                width: 32px;
-                height: 32px;
-            }
+      @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+        h1 {
+          font-size: 11.5vw;
         }
 
-        @media (min-width: 1200px) {
-            h2 {
-                margin-top: -25px;
-            }
+        h2 {
+          font-size: 5vw;
+          margin-top: -10px;
         }
 
-        @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: landscape) {
-            h1 {
-                font-size: 11.5vw;
-            }
-
-            h2 {
-                font-size: 5vw;
-                margin-top: -10px;
-            }
-
-            a {
-                width: 32px;
-                height: 32px;
-            }
+        a {
+          width: 32px;
+          height: 32px;
         }
-
-        @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
-            h1 {
-                font-size: 11.5vw;
-            }
-
-            h2 {
-                font-size: 5vw;
-                margin-top: -10px;
-            }
-
-            a {
-                width: 32px;
-                height: 32px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="content">
-        <h1>JAN REMBOLD</h1>
-        <h2>FRONTEND DEVELOPER</h2>
-        <div>
-            <a href="https://github.com/janrembold" title="GitHub">
-                <img src="img/icons/github.png" alt="GitHub">
-            </a>
-            <a href="https://www.xing.com/profile/Jan_Rembold" title="Xing">
-                <img src="img/icons/xing.png" alt="Xing">
-            </a>
-            <a href="https://www.linkedin.com/in/jan-rembold-67bb2417/" title="LinkedIn">
-                <img src="img/icons/linkedin.png" alt="LinkedIn">
-            </a>
-            <a href="https://www.facebook.com/jan.rembold" title="Facebook">
-                <img src="img/icons/facebook.png" alt="Facebook">
-            </a>
-        </div>
+      <h1>JAN REMBOLD</h1>
+      <h2>FRONTEND DEVELOPER</h2>
+      <div>
+        <a href="https://github.com/janrembold" title="GitHub">
+          <img src="img/icons/github.png" alt="GitHub" />
+        </a>
+        <a href="https://www.xing.com/profile/Jan_Rembold" title="Xing">
+          <img src="img/icons/xing.png" alt="Xing" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/jan-rembold-67bb2417/"
+          title="LinkedIn"
+        >
+          <img src="img/icons/linkedin.png" alt="LinkedIn" />
+        </a>
+        <a href="https://www.facebook.com/jan.rembold" title="Facebook">
+          <img src="img/icons/facebook.png" alt="Facebook" />
+        </a>
+      </div>
     </div>
     <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "jobTitle": "Frontend Developer",
-          "name": "Jan Rembold",
-          "gender": "male",
-          "nationality": "German",
-          "url": "http://janrembold.github.io/",
-          "sameAs" : [ 
-            "https://github.com/janrembold",
-            "https://www.xing.com/profile/Jan_Rembold",
-            "https://www.linkedin.com/in/jan-rembold-67bb2417/",
-            "https://www.facebook.com/jan.rembold"
-          ]
-        }
+      {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "jobTitle": "Frontend Developer",
+        "name": "Jan Rembold",
+        "gender": "male",
+        "nationality": "German",
+        "url": "http://janrembold.github.io/",
+        "sameAs": [
+          "https://github.com/janrembold",
+          "https://www.xing.com/profile/Jan_Rembold",
+          "https://www.linkedin.com/in/jan-rembold-67bb2417/",
+          "https://www.facebook.com/jan.rembold"
+        ]
+      }
     </script>
-</body>
-
+  </body>
 </html>
