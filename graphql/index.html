@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/reveal.css" />
     <link rel="stylesheet" href="css/theme/black.css" />
+    <link rel="stylesheet" href="css/simple-grid.css" />
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/monokai.css" />
@@ -30,20 +31,194 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section
-          data-markdown="slides/welcome.md"
-          data-separator="^\n\n\n"
-          data-separator-vertical="^\n\n"
-          data-separator-notes="^Note:"
-          data-charset="utf-8"
-        ></section>
-        <section
-          data-markdown="slides/overview.md"
-          data-separator="^\n\n\n"
-          data-separator-vertical="^\n\n"
-          data-separator-notes="^Note:"
-          data-charset="utf-8"
-        ></section>
+        <section data-markdown>
+          <script type="text/template">
+            # GraphQL
+
+            Einführung, Apollo, Hasura
+
+            <small>Haufe Akademie&nbsp;&nbsp;|&nbsp;&nbsp;Jan Rembold&nbsp;&nbsp;|&nbsp;&nbsp;2020</small>
+          </script>
+        </section>
+        <section data-markdown="slides/overview.md"></section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              # GraphQL
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Geschichte von GraphQL
+              - 2012 von Facebook entwickelt
+              - 2015 Freigabe als Open Source
+              - 2018 Gründung GraphQL Foundation und Eingliederung in Linux Foundation
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Ziele von GraphQL
+              - Schnellere Ladezeiten für mobile Apps
+              - Traffic minimieren
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Was ist GraphQL?
+              Syntax zur Abfrage / Manipulation _typisierter_ Daten
+              - Schema
+              - Query / Mutation
+              - Subscription
+            </script>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              # GraphQL vs REST
+              > Liste von Nutzernamen ausgeben
+            </script>
+          </section>
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-12" data-markdown>
+                  <script type="text/template">
+                    ## REST Example
+                  </script>
+                </div>
+                <div class="col-5" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+Request
+```
+GET: /api/v1/users
+
+Payload: {}
+```
+                    </script>
+                </div>
+                <div class="col-7" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+Response
+```
+{
+    users: [{
+      id: 1,
+      name: 'Jon Doe',
+      street: 'Hauptstr. 12',
+      postalCode: '79098',
+      city: 'Freiburg', 
+      [ ... ],
+      _embedded: {
+        addresses: [ ... ]
+        roles: [ ... ]
+      }
+    }, { ... }, { ... }]
+}
+```
+                  </script>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-12" data-markdown>
+                  <script type="text/template">
+                    ## GraphQL Example
+                  </script>
+                </div>
+                <div class="col-6" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+Request
+```
+POST: /api/v1/graphql
+
+Payload: { 
+  query: "query {
+    users {
+        name
+    }
+  }"
+}
+```
+                    </script>
+                </div>
+                <div class="col-6" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+Response
+```
+{
+    users: [
+      {name: 'Jon Doe'},
+      {name: 'Tim Tester'},
+      { ... }
+    ]
+}
+```
+                  </script>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+              ## GraphQL Server
+              Schema - Resolver - Query
+            </script>
+          </section>
+          <section data-markdown>
+            <!-- prettier-ignore -->
+            <script type="text/template">
+              ### Schema 
+```
+type Course {
+  id: Int
+  name: String
+  modules: [Modul]
+}
+ 
+type Module {
+  id: Int
+  name: String
+  course: Course
+}
+ 
+type Query {
+  getCourse(id: Int): Course
+  getModulesByName(name: String): [Module]
+}
+```
+            </script>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Resolvers
+              ```
+              getCourse(_, args) {
+                return sql.raw(
+                  'SELECT * FROM courses WHERE id = %s',
+                  args.id
+                );
+              }
+
+              modules(course) {
+                return request(
+                  `https://module-api/course/${course.id}`
+                );
+              }
+              ```
+            </script>
+          </section>
+        </section>
       </div>
     </div>
 
