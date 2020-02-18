@@ -91,7 +91,7 @@ type Module {
 }
  
 type Query {
-  getCourse(id: Int): Course
+  getCourse(id: Int!): Course
 }
 ```
             </script>
@@ -109,7 +109,7 @@ type Query {
 
               modules(course) {
                 return request(
-                  `https://module-api/course/${course.id}`
+                  `https://my-api.io/course/${course.id}`
                 );
               }
               ```
@@ -295,31 +295,71 @@ Response
               </div>
             </div>
           </section>
-        </section>
-        <section>
           <section data-markdown>
             <script type="text/template">
-              ## Vor- und Nachteile
+              ## Unterschiede zu REST
+              - HTTP-Methode: (meist) nur POST
+              - Response-Code ist (immer) 200
+              - Client definiert Response-Format
+              - Keine Endpoints, sondern Schema
             </script>
           </section>
-          <section data-markdown>
+          <!-- <section data-markdown>
             <script type="text/template">
               ## Vorteile
               - Foo
               - Bar
             </script>
-          </section>
+          </section> -->
         </section>
         <section>
           <section data-markdown>
             <script type="text/template">
               ## GraphQL Frameworks
-              Apollo - Relay - Hasura
+              Apollo - Relay - (Hasura)
             </script>
           </section>
           <section data-markdown>
             <script type="text/template">
-              ## Hands-on ...
+              ## Framework Stats
+              ![apollo](img/apollo-stats.png)
+              ![relay](img/relay-stats.png)
+              ![hasura](img/hasura-stats.png)
+            </script>
+          </section>
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-6" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+### Apollo
+- Frameworkunabhängig 
+- Sehr flexibel
+- Einfache Integration
+- Doku + Support Sehr gut
+- Client + Server
+                    </script>
+                </div>
+                <div class="col-6" data-markdown>
+                  <!-- prettier-ignore -->
+                  <script type="text/template">
+### Relay
+- React & React Native
+- Starre Strukturen
+- Höhere Einstiegshürden 
+- Doku + Support OK
+- Client
+- Facebook-Centric
+                  </script>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+              ## Hands-On Hasura
+              ![hasura](img/hasura-slogan.png)
             </script>
           </section>
         </section>
