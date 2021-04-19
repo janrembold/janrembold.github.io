@@ -1,24 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="111" height="21.253" viewBox="0 0 111 21.253">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110" height="20.253" viewBox="0 0 110 20.253">
   <defs>
-    <filter id="Rechteck_6" x="0" y="0" width="111" height="21.253" filterUnits="userSpaceOnUse">
-      <feOffset dx="1" dy="1" input="SourceAlpha"/>
-      <feGaussianBlur result="blur"/>
-      <feFlood flood-opacity="0.365"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
     <filter id="design_platform" x="10" y="4" width="91" height="15" filterUnits="userSpaceOnUse">
       <feOffset dy="1" input="SourceAlpha"/>
-      <feGaussianBlur result="blur-2"/>
+      <feGaussianBlur result="blur"/>
       <feFlood flood-opacity="0.29"/>
-      <feComposite operator="in" in2="blur-2"/>
+      <feComposite operator="in" in2="blur"/>
       <feComposite in="SourceGraphic"/>
     </filter>
   </defs>
   <g id="Gruppe_2" data-name="Gruppe 2" transform="translate(758 67)">
-    <g transform="matrix(1, 0, 0, 1, -758, -67)" filter="url(#Rechteck_6)">
-      <rect id="Rechteck_6-2" data-name="Rechteck 6" width="110" height="20.253" rx="3" fill="#6b05c4"/>
-    </g>
+    <rect id="Rechteck_6" data-name="Rechteck 6" width="110" height="20.253" rx="3" transform="translate(-758 -67)" fill="#6b05c4"/>
     <g transform="matrix(1, 0, 0, 1, -758, -67)" filter="url(#design_platform)">
       <text id="design_platform-2" data-name="design platform" transform="translate(10 15)" fill="#fff" font-size="11.5" font-family="DejaVu Sans,Verdana,Geneva,sans-serif"><tspan x="0" y="0">design platform</tspan></text>
     </g>
