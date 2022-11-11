@@ -24,7 +24,8 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      #title, #subtitle {
+      #title,
+      #subtitle {
         color: white;
         font-size: 30px;
         text-align: center;
@@ -41,14 +42,15 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 20px 5px;        
+        padding: 20px 5px;
       }
 
       @media (min-width: 600px) {
-        #title, #subtitle {
-          font-size: 50px;      
+        #title,
+        #subtitle {
+          font-size: 50px;
         }
-        
+
         .content {
           padding: 30px 100px;
         }
@@ -58,7 +60,7 @@
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        border: 3px solid #B60C12;
+        border: 3px solid #b60c12;
         padding: 10px;
         margin: 10px;
         width: 150px;
@@ -68,13 +70,13 @@
       }
 
       .entry-today {
-        box-shadow: 5px 5px 10px 5px rgba(255,0,0,0.4);
+        box-shadow: 5px 5px 10px 5px rgba(255, 0, 0, 0.4);
         border-style: dotted;
         cursor: pointer;
       }
 
       .entry-number {
-        font-size: 50px;        
+        font-size: 50px;
       }
 
       .entry-text {
@@ -82,13 +84,18 @@
         font-weight: bold;
       }
     </style>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KK221DRP7"></script> 
-    <script> 
-      window.dataLayer = window.dataLayer || []; 
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date()); 
-      gtag('config', 'G-2KK221DRP7'); 
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-2KK221DRP7"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2KK221DRP7");
     </script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
   </head>
@@ -108,62 +115,65 @@
     <script>
       const jsConfetti = new JSConfetti();
       const warum = [
-        'weil ich mir Dir über alles sprechen kann',
-        'wegen deinem wunderschönen Lächeln',
-        'weil du so einfühlsam bist',
-        'wegen deinem rollenden R',
-        'wegen deiner offenen und liebevollen Art',
-        'weil du überall versuchst etwas positives zu entdecken',
-        'weil du mich zum nachdenken bringst',
-        'wegen deiner neugierigen und verspielten Art',
-        'weil du so aufgeschlossen bist',
-        'weil du viel stärker bist als du manchmal selbst glaubst',
-        'wegen deinem Popowackeln',
-        'weil du ungeschminkt unfassbar gut aussiehst',
-        'weil du so herrlich genießen kannst',
-        'wegen deiner Ehrlichkeit',
-        'weil es mit dir niemals langweilig wird',
-        'weil wir unsere Gedanken und Wünsche offen aussprechen können',
-        'weil du eine unglaublich attraktive und sexy Frau bist',
-        'weil wir unglaublich ehrlich und offen miteinander sein können',
-        'weil ich mit dir lachen und weinen kann',
-        'wegen deinen wunderschönen braunen Augen',
-        'weil dein Hals einfach zum anbeißen ist',
-        'weil ich mich an dir anlehnen kann',
-        'weil kuscheln mit dir unendlich schön ist',
-        'weil wir einfach füreinander gemacht sind! Ich liebe Dich, Yvi 😘',
+        "weil ich mir Dir über alles sprechen kann",
+        "wegen deinem wunderschönen Lächeln",
+        "weil du so einfühlsam bist",
+        "wegen deinem rollenden R",
+        "wegen deiner offenen und liebevollen Art",
+        "weil du überall versuchst etwas positives zu entdecken",
+        "weil du mich zum nachdenken bringst",
+        "wegen deiner neugierigen und verspielten Art",
+        "weil du so aufgeschlossen bist",
+        "weil du viel stärker bist als du manchmal selbst glaubst",
+        "wegen deinem Popowackeln",
+        "weil du ungeschminkt unfassbar gut aussiehst",
+        "weil du so herrlich genießen kannst",
+        "wegen deiner Ehrlichkeit",
+        "weil es mit dir niemals langweilig wird",
+        "weil wir unsere Gedanken und Wünsche offen aussprechen können",
+        "weil du eine unglaublich attraktive und sexy Frau bist",
+        "weil ich mit dir lachen und weinen kann",
+        "wegen deinen wunderschönen braunen Augen",
+        "weil dein Hals einfach zum anbeißen ist",
+        "weil wir unglaublich ehrlich und offen miteinander sein können",
+        "weil ich mich an dir anlehnen kann",
+        "weil kuscheln mit dir unendlich schön ist",
+        "weil wir einfach füreinander gemacht sind! Ich liebe Dich, Yvi 😘",
       ];
-      const target = document.getElementById('target');
-      const template = document.getElementById('door');
-      const day = (new Date()).getDate();
-      const month = (new Date()).getMonth();
+      const target = document.getElementById("target");
+      const template = document.getElementById("door");
+      const day = new Date().getDate();
+      const month = new Date().getMonth();
       const isDecember = month === 11;
 
-      if(day >= 21) {
-        const title = document.getElementById('title');
-        title.textContent = 'Warum ich dich so liebe...';
+      if (day >= 21) {
+        const title = document.getElementById("title");
+        title.textContent = "Warum ich dich so liebe...";
       }
 
-      if(day >= 24) {
-        const subtitle = document.getElementById('subtitle');
-        subtitle.style.display = 'block';
+      if (day >= 24) {
+        const subtitle = document.getElementById("subtitle");
+        subtitle.style.display = "block";
       }
-      
+
       for (let index = 0; index < warum.length; index++) {
         const clone = template.content.cloneNode(true);
-        const box = clone.querySelector('.entry');
-        const num = clone.querySelector('.entry-number');
-        const text = clone.querySelector('.entry-text');
+        const box = clone.querySelector(".entry");
+        const num = clone.querySelector(".entry-number");
+        const text = clone.querySelector(".entry-text");
         num.textContent = index + 1;
-        text.textContent = '';     
-        
-        if(isDecember && index < day - 1) {
-          text.textContent = warum[index];           
-        } else if(isDecember && index === day - 1) {
-          box.classList.add('entry-today');
-          box.onclick = function() { text.textContent = warum[index]; jsConfetti.addConfetti({ confettiRadius: 6, confettiNumber: 500 }); }      
-        } 
-        
+        text.textContent = "";
+
+        if (isDecember && index < day - 1) {
+          text.textContent = warum[index];
+        } else if (isDecember && index === day - 1) {
+          box.classList.add("entry-today");
+          box.onclick = function () {
+            text.textContent = warum[index];
+            jsConfetti.addConfetti({ confettiRadius: 6, confettiNumber: 500 });
+          };
+        }
+
         target.appendChild(clone);
       }
     </script>
