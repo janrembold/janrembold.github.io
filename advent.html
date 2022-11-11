@@ -5,7 +5,10 @@
     <title>Yvi</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico" />
     <meta name="robots" content="noindex" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
     <style>
       body {
@@ -15,13 +18,20 @@
         margin: 0;
         min-width: 320px;
         color: #404040;
-        background: white url(img/advent.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        background-color: #fafbf6;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
+      }
+
+      .bg {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: url(img/advent.jpg);
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: cover;
+        z-index: -1;
       }
 
       #title,
@@ -30,7 +40,8 @@
         font-size: 30px;
         text-align: center;
         text-shadow: 0px 0px 5px #000;
-        margin: 30px 0 0;
+        margin: 0;
+        padding: 30px 0 0;
       }
 
       #subtitle {
@@ -101,6 +112,7 @@
   </head>
 
   <body>
+    <div class="bg"></div>
     <h1 id="title">Warum ich dich so mag...</h1>
     <div class="content" id="target"></div>
     <h1 id="subtitle">Frohe Weihnachten mein Schatz ❤️</h1>
@@ -135,7 +147,7 @@
         "weil ich mit dir lachen und weinen kann",
         "wegen deinen wunderschönen braunen Augen",
         "weil dein Hals einfach zum anbeißen ist",
-        "weil wir unglaublich ehrlich und offen miteinander sein können",
+        "weil wir immer ehrlich und offen miteinander sein können",
         "weil ich mich an dir anlehnen kann",
         "weil kuscheln mit dir unendlich schön ist",
         "weil wir einfach füreinander gemacht sind! Ich liebe Dich, Yvi 😘",
