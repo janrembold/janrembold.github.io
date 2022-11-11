@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Yvi</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0;
+        min-width: 320px;
+        color: #404040;
+        background: white url(img/advent.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #title, #subtitle {
+        color: white;
+        font-size: 30px;
+        text-align: center;
+        text-shadow: 0px 0px 5px #000;
+        margin: 30px 0 0;
+      }
+
+      #subtitle {
+        margin-top: 10px;
+        display: none;
+      }
+
+      .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px 5px;        
+      }
+
+      @media (min-width: 600px) {
+        #title, #subtitle {
+          font-size: 50px;      
+        }
+        
+        .content {
+          padding: 30px 100px;
+        }
+      }
+
+      .entry {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        border: 3px solid #B60C12;
+        padding: 10px;
+        margin: 10px;
+        width: 150px;
+        min-height: 150px;
+        background-color: white;
+        border-radius: 10px;
+      }
+
+      .entry-today {
+        box-shadow: 5px 5px 10px 5px rgba(255,0,0,0.4);
+        border-style: dotted;
+        cursor: pointer;
+      }
+
+      .entry-number {
+        font-size: 50px;        
+      }
+
+      .entry-text {
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KK221DRP7"></script> 
+    <script> 
+      window.dataLayer = window.dataLayer || []; 
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date()); 
+      gtag('config', 'G-2KK221DRP7'); 
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+  </head>
+
+  <body>
+    <h1 id="title">Warum ich dich so mag...</h1>
+    <div class="content" id="target"></div>
+    <h1 id="subtitle">Frohe Weihnachten mein Schatz ❤️</h1>
+
+    <template id="door">
+      <div class="entry">
+        <div class="entry-number"></div>
+        <div class="entry-text"></div>
+      </div>
+    </template>
+
+    <script>
+      const jsConfetti = new JSConfetti();
+      const warum = [
+        'weil ich mir Dir über alles sprechen kann',
+        'wegen deinem wunderschönen Lächeln',
+        'weil du so einfühlsam bist',
+        'wegen deinem rollenden R',
+        'wegen deiner offenen und liebevollen Art',
+        'weil du überall versuchst etwas positives zu entdecken',
+        'weil du mich zum nachdenken bringst',
+        'wegen deiner neugierigen und verspielten Art',
+        'weil du so aufgeschlossen bist',
+        'weil du viel stärker bist als du manchmal selbst glaubst',
+        'wegen deinem Popowackeln',
+        'weil du ungeschminkt unfassbar gut aussiehst',
+        'weil du so herrlich genießen kannst',
+        'wegen deiner Ehrlichkeit',
+        'weil es mit dir niemals langweilig wird',
+        'weil wir unsere Gedanken und Wünsche offen aussprechen können',
+        'weil du eine unglaublich attraktive und sexy Frau bist',
+        'weil wir unglaublich ehrlich und offen miteinander sein können',
+        'weil ich mit dir lachen und weinen kann',
+        'wegen deinen wunderschönen braunen Augen',
+        'weil dein Hals einfach zum anbeißen ist',
+        'weil ich mich an dir anlehnen kann',
+        'weil kuscheln mit dir unendlich schön ist',
+        'weil wir einfach füreinander gemacht sind! Ich liebe Dich, Yvi 😘',
+      ];
+      const target = document.getElementById('target');
+      const template = document.getElementById('door');
+      const day = (new Date()).getDate();
+      const month = (new Date()).getMonth();
+      const isDecember = month === 11;
+
+      if(day >= 21) {
+        const title = document.getElementById('title');
+        title.textContent = 'Warum ich dich so liebe...';
+      }
+
+      if(day >= 24) {
+        const subtitle = document.getElementById('subtitle');
+        subtitle.style.display = 'block';
+      }
+      
+      for (let index = 0; index < warum.length; index++) {
+        const clone = template.content.cloneNode(true);
+        const box = clone.querySelector('.entry');
+        const num = clone.querySelector('.entry-number');
+        const text = clone.querySelector('.entry-text');
+        num.textContent = index + 1;
+        text.textContent = '';     
+        
+        if(isDecember && index < day - 1) {
+          text.textContent = warum[index];           
+        } else if(isDecember && index === day - 1) {
+          box.classList.add('entry-today');
+          box.onclick = function() { text.textContent = warum[index]; jsConfetti.addConfetti({ confettiRadius: 6, confettiNumber: 500 }); }      
+        } 
+        
+        target.appendChild(clone);
+      }
+    </script>
+  </body>
+</html>
