@@ -181,6 +181,7 @@
           box.onclick = function () {
             text.textContent = warum[index];
             jsConfetti.addConfetti({ confettiRadius: 6, confettiNumber: 500 });
+            gtag("event", "Door", { day });
           };
         }
 
