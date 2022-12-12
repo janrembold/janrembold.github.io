@@ -116,6 +116,8 @@
     <h1 id="title">Warum ich dich so mag...</h1>
     <div class="content" id="target"></div>
     <h1 id="subtitle">Frohe Weihnachten mein Schatz ❤️</h1>
+    <br />
+    <br />
 
     <template id="door">
       <div class="entry">
@@ -159,9 +161,6 @@
       const isDecember = month === 11;
 
       if (day >= 24) {
-        const title = document.getElementById("title");
-        title.textContent = "Warum ich dich so liebe...";
-
         const subtitle = document.getElementById("subtitle");
         subtitle.style.display = "block";
       }
