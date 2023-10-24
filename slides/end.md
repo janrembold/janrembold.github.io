@@ -1,1 +1,0 @@
-Vielen Dank für Eure Aufmerksamkeit
